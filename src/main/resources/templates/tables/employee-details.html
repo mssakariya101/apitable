@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+</head>
+<style>.modal-dialog {max-width: 600px;}</style>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <div th:replace="~{fragments/sidebar :: ul}"></div>
+    <!-- Content Wrapper -->
+
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div th:replace="~{fragments/top-navbar :: nav}"></div>
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Employee</h1>
+                    <div class="d-flex align-items-center">
+                        <a th:href="@{'/api/employee/add-form'}"  class="btn btn-sm btn-primary shadow-sm mr-2" >
+                            Add Employee
+                        </a>
+                        <button id="pdfButton" class="btn btn-sm btn-primary shadow-sm mr-2">
+                            <i class="fas fa-download fa-sm text-white-50"></i> Download PDF
+                        </button>
+                        <button id="excelButton" class="btn btn-sm btn-primary shadow-sm">
+                            <i class="fas fa-download fa-sm text-white-50"></i> Download Excel
+                        </button>
+                    </div>
+                </div>
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="dataTable" class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Prefill</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:replace="~{fragments/footer :: footer}"></div>
+    </div>
+</div>
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Scripts -->
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
+<script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/sweetalert2.all.min.js}"></script>
+<script th:src="@{/js/data-table/employee-datatable.js}"></script>
+<script th:src="@{/js/alerts.js}"></script>
+
+</body>
+</html>
