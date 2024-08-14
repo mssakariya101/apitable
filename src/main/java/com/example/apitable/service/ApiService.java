@@ -16,12 +16,6 @@ public class ApiService {
 
     @Value("${api.token}")
     private String API_TOKEN;
-    @Value("${api.url}")
-    private String API_URL;
-    @Value("${api.datasheet.id}")
-    private String DATASHEET_ID;
-    @Value("${api.view.id}")
-    private String VIEW_ID;
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
@@ -32,14 +26,13 @@ public class ApiService {
         this.objectMapper = objectMapper;
     }
 
-    public ResponseDTO insertRecords(RecordsRequestDTO request) {
-        String url=API_URL + DATASHEET_ID+"/records?viewId="+VIEW_ID+ "&fieldKey=name";
+    public ResponseDTO insertRecords(RecordsDTO request,String url) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(API_TOKEN);
 
-        HttpEntity<RecordsRequestDTO> entity = new HttpEntity<>(request, headers);
+        HttpEntity<RecordsDTO> entity = new HttpEntity<>(request, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(url,HttpMethod.POST,entity, String.class);
         System.out.println(response);
@@ -51,8 +44,8 @@ public class ApiService {
         }
     }
 
-    public DataResponse fetchRecord(String recordId) {
-        String url = API_URL + DATASHEET_ID + "/records?recordIds=" + recordId;
+    public DataTableResponseDTO getRecords(String url) {
+        System.out.println("URL: " + url);
 
         // Set headers
         HttpHeaders headers = new HttpHeaders();
@@ -60,23 +53,7 @@ public class ApiService {
 
         HttpEntity<Void> entity = new HttpEntity<>(headers);
         ResponseEntity<DataTableResponseDTO> response = restTemplate.exchange(url, HttpMethod.GET, entity, DataTableResponseDTO.class);
-
-        if (response.getStatusCode().is2xxSuccessful()) {
-            return Objects.requireNonNull(response.getBody()).getData();
-        } else {
-            return null;
-        }
-    }
-
-    public DataTableResponseDTO fetchAllRecords(DataTableRequestDTO dataTableRequest) {
-        String url = API_URL + DATASHEET_ID + "/records?pageSize="+dataTableRequest.getLength()+"&pageNum="+dataTableRequest.getPage();
-
-        // Set headers
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(API_TOKEN);
-
-        HttpEntity<Void> entity = new HttpEntity<>(headers);
-        ResponseEntity<DataTableResponseDTO> response = restTemplate.exchange(url, HttpMethod.GET, entity, DataTableResponseDTO.class);
+        System.out.println("Response...."+response);
 
         if (response.getStatusCode().is2xxSuccessful()) {
             return response.getBody();
@@ -85,13 +62,13 @@ public class ApiService {
         }
     }
 
-    public ResponseDTO updateRecord(RecordsRequestDTO record) {
-        String url = API_URL + DATASHEET_ID + "/records";
+
+    public ResponseDTO updateRecord(RecordsDTO record,String url) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(API_TOKEN);
-        HttpEntity<RecordsRequestDTO> entity = new HttpEntity<>(record, headers);
+        HttpEntity<RecordsDTO> entity = new HttpEntity<>(record, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.PUT, entity, String.class);
 
@@ -101,8 +78,7 @@ public class ApiService {
             return new ResponseDTO(response.getStatusCode().value(),false,"Failed to Update record");
         }
     }
-    public ResponseDTO deleteRecord(String recordId) {
-        String url = API_URL + DATASHEET_ID + "/records?recordIds=" + recordId;
+    public ResponseDTO deleteRecord(String url) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(API_TOKEN);
@@ -114,6 +90,5 @@ public class ApiService {
         } else {
             return new ResponseDTO(response.getStatusCode().value(),false,"Failed to delete record");
         }
-
     }
 }

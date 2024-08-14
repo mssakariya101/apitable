@@ -59,8 +59,7 @@ $(document).ready(function() {
                     phoneNumber: $('#phoneNumber').val(),
                     companySize: $('#companySize').val(),
                     prefill: $('#prefill').val(),
-                    stage: $('#stage').val(),
-                    visitRecords: $('#visitRecords').val().split(',').map(item => item.trim())
+                    stage: $('#stage').val()
                 }
             }]
         };
@@ -84,7 +83,7 @@ $(document).ready(function() {
                     text: response.message
                 }).then(() => {
                     // Redirect to a different page or clear the form after success
-                    window.location.href = '/employee/show'; // Adjust this URL as needed
+                    window.location.href = '/api/employee/show'; // Adjust this URL as needed
                 });
             },
             error: function() {

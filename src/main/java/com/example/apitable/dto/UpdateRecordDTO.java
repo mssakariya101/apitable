@@ -11,11 +11,10 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level= AccessLevel.PRIVATE)
-public class UpdateEmployeeDTO {
+public class UpdateRecordDTO<T> {
 
     @JsonProperty("recordId")
     String recordId;
 
-    @JsonProperty("fields")
-    EmployeeDTO fields;
+    FieldsDTO <T> fields;
 }

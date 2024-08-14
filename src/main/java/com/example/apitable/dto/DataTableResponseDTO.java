@@ -12,8 +12,8 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class DataTableResponseDTO {
 
-    int recordsTotal;
-    int recordsFiltered;
+    Integer recordsTotal;
+    Integer recordsFiltered;
     DataResponse data;
 
 }

@@ -1,36 +1,40 @@
 package com.example.apitable.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class EmployeeDTO {
+
     @JsonProperty("fullName")
-    private String fullName;
+    String fullName;
 
     @JsonProperty("workEmail")
-    private String workEmail;
+    String workEmail;
 
     @JsonProperty("jobTitleOrDepartment")
-    private String jobTitleOrDepartment;
+    String jobTitleOrDepartment;
 
     @JsonProperty("phoneNumber")
-    private String phoneNumber;
+    String phoneNumber;
 
     @JsonProperty("companyName")
-    private String companyName;
+    String companyName;
 
     @JsonProperty("companySize")
-    private String companySize;
+    String companySize;
 
     @JsonProperty("prefill")
-    private String prefill;
+    String prefill;
 
     @JsonProperty("stage")
-    private String stage;
+    String stage;
 
-    @JsonProperty("visitRecords")
-    private List<String> visitRecords;
+    @JsonProperty("projects")
+    List<String> projects;
 }

@@ -1,17 +1,20 @@
 package com.example.apitable.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RecordDTO<T> {
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class FieldsDTO<T> {
 
     @JsonProperty("fields")
-    private T fields;
+    T fields;
 
 }
 

@@ -1,23 +1,25 @@
 package com.example.apitable.controller;
 
 import com.example.apitable.dto.*;
-import com.example.apitable.service.ApiService;
+import com.example.apitable.service.EmployeeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-
 
 @Controller
 //@RestController
 @RequestMapping("/api/employee")
 public class  EmployeeController {
 
-    private final ApiService apiService;
+    private final EmployeeService employeeService;
 
-    public EmployeeController(ApiService apiService) {
-        this.apiService = apiService;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+    @GetMapping("/show")
+    public String employee() {
+        return "tables/employee-details";
     }
 
     @GetMapping("/add-form")
@@ -31,30 +33,34 @@ public class  EmployeeController {
         return "add-employee";
     }
     @PostMapping("/save")
-    public ResponseEntity<ResponseDTO> insertRecords(@RequestBody RecordsRequestDTO request) {
-        return ResponseEntity.ok(apiService.insertRecords(request));
+    public ResponseEntity<ResponseDTO> addEmployee(@RequestBody RecordsDTO request) {
+        return ResponseEntity.ok(employeeService.addEmployee(request));
     }
 
     @GetMapping("/list")
     public ResponseEntity<DataTableResponseDTO> fetchRecords(@ModelAttribute DataTableRequestDTO dataTableRequest) {
 
-        DataTableResponseDTO records = apiService.fetchAllRecords(dataTableRequest);
+        DataTableResponseDTO records = employeeService.getEmployees(dataTableRequest);
         records.setRecordsTotal(records.getData().getTotal());
         records.setRecordsFiltered(records.getData().getTotal());
 
         return ResponseEntity.ok(records);
     }
+    @GetMapping("/all")
+    public ResponseEntity<DataResponse> fetchAllRecord()  {
+        return ResponseEntity.ok(employeeService.getAllEmployeeFullName());
+    }
     @GetMapping("/fetch/{recordId}")
     public ResponseEntity<DataResponse> fetchRecord(@PathVariable String recordId)  {
-        return ResponseEntity.ok(apiService.fetchRecord(recordId));
+        return ResponseEntity.ok(employeeService.getEmployee(recordId));
     }
 
     @PutMapping("/update")
-    public ResponseEntity<ResponseDTO> updateRecord(@RequestBody RecordsRequestDTO request) {
-        return ResponseEntity.ok(apiService.updateRecord(request));
+    public ResponseEntity<ResponseDTO> updateRecord(@RequestBody RecordsDTO request) {
+        return ResponseEntity.ok(employeeService.updateEmployee(request));
     }
     @DeleteMapping("/delete/{recordId}")
     public ResponseEntity<ResponseDTO> deleteRecord(@PathVariable String recordId) {
-        return ResponseEntity.ok(apiService.deleteRecord(recordId));
+        return ResponseEntity.ok(employeeService.deleteEmployee(recordId));
     }
 }

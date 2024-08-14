@@ -13,12 +13,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level= AccessLevel.PRIVATE)
-public class DataResponse {
+public class DataResponse<T> {
+
     @JsonProperty("total")
-    int total;
+    Integer total;
 
     @JsonProperty("records")
-    List<?> data;
+    T records;
 }
 
 
