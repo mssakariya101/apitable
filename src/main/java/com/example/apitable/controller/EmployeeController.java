@@ -1,6 +1,7 @@
 package com.example.apitable.controller;
 
 import com.example.apitable.dto.*;
+import com.example.apitable.exception.CustomException;
 import com.example.apitable.service.EmployeeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -8,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-//@RestController
 @RequestMapping("/api/employee")
 public class  EmployeeController {
 
@@ -38,7 +38,7 @@ public class  EmployeeController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<DataTableResponseDTO> fetchRecords(@ModelAttribute DataTableRequestDTO dataTableRequest) {
+    public ResponseEntity<DataTableResponseDTO> fetchRecords(@ModelAttribute DataTableRequestDTO dataTableRequest) throws CustomException {
 
         DataTableResponseDTO records = employeeService.getEmployees(dataTableRequest);
         records.setRecordsTotal(records.getData().getTotal());
@@ -47,11 +47,12 @@ public class  EmployeeController {
         return ResponseEntity.ok(records);
     }
     @GetMapping("/all")
-    public ResponseEntity<DataResponse> fetchAllRecord()  {
+    public ResponseEntity<DataResponse> fetchAllRecord() throws CustomException {
         return ResponseEntity.ok(employeeService.getAllEmployeeFullName());
     }
-    @GetMapping("/fetch/{recordId}")
-    public ResponseEntity<DataResponse> fetchRecord(@PathVariable String recordId)  {
+
+    @GetMapping("/{recordId}")
+    public ResponseEntity<DataResponse> fetchProject(@PathVariable String recordId) throws CustomException {
         return ResponseEntity.ok(employeeService.getEmployee(recordId));
     }
 

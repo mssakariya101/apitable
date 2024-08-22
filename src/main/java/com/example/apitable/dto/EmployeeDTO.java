@@ -23,17 +23,11 @@ public class EmployeeDTO {
     @JsonProperty("phoneNumber")
     String phoneNumber;
 
-    @JsonProperty("companyName")
-    String companyName;
-
     @JsonProperty("companySize")
     String companySize;
 
-    @JsonProperty("prefill")
-    String prefill;
-
-    @JsonProperty("stage")
-    String stage;
+    @JsonProperty("companyName")
+    String companyName;
 
     @JsonProperty("projects")
     List<String> projects;

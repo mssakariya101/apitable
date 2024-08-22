@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<div th:replace="~{fragments/header :: header}"></div>
+    <div th:replace="~{fragments/header :: header}"></div>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 <body id="page-top">
 <!-- Page Wrapper -->
@@ -18,41 +19,39 @@
                 <h1 th:text="${recordId == null ? 'Add' : 'Update'} + ' Employee'"></h1>
                 <div class="card shadow mb-4">
                     <div class="card-body">
-                        <form id="employeeForm" >
+                        <form id="employeeForm">
                             <input id="recordId" th:value="${recordId}" hidden="hidden" />
                             <div class="mb-3">
                                 <label for="fullName" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="fullName"  required>
+                                <input type="text" class="form-control" id="fullName" name="fullName" >
                             </div>
                             <div class="mb-3">
                                 <label for="workEmail" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="workEmail"  required>
+                                <input type="email" class="form-control" id="workEmail" name="workEmail" >
                             </div>
                             <div class="mb-3">
                                 <label for="jobTitleOrDepartment" class="form-label">Job Title</label>
-                                <input type="text" class="form-control" id="jobTitleOrDepartment"  required>
+                                <input type="text" class="form-control" id="jobTitleOrDepartment" name="jobTitleOrDepartment" >
                             </div>
                             <div class="mb-3">
                                 <label for="phoneNumber" class="form-label">Phone</label>
-                                <input type="text" class="form-control" id="phoneNumber" required>
+                                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" >
                             </div>
                             <div class="mb-3">
                                 <label for="companySize" class="form-label">Company Size</label>
-                                <input type="text" class="form-control" id="companySize"  required>
+                                <input type="text" class="form-control" id="companySize" name="companySize" >
                             </div>
                             <div class="mb-3">
-                                <label for="prefill" class="form-label">Prefill</label>
-                                <input type="text" class="form-control" id="prefill" >
+                                <label for="companyName" class="form-label">Company Name</label>
+                                <input type="text" class="form-control" id="companyName" name="companyName">
                             </div>
                             <div class="mb-3">
-                                <label for="stage" class="form-label">Stage</label>
-                                <input type="text" class="form-control" id="stage" >
+                                <label for="projectSelect" class="form-label">Projects</label>
+                                <select class="form-control" id="projectSelect" name="projectSelect" multiple>
+                                    <!-- Options will be populated dynamically via JavaScript -->
+                                </select>
                             </div>
-                            <div class="mb-3">
-                                <label for="projects" class="form-label">Projects</label>
-                                <input type="text" class="form-control" id="projects">
-                            </div>
-                            <button type="submit" class="btn btn-primary" >Save</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </form>
                     </div>
                 </div>
@@ -61,11 +60,14 @@
         <div th:replace="~{fragments/footer :: footer}"></div>
     </div>
 </div>
+
 <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
 <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
-<script th:src="@{/js/sb-admin-2.min.js}"></script>
 <script th:src="@{/vendor/bootstrap/js/sweetalert2.all.min.js}"></script>
+<!-- jQuery Validation Plugin -->
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.21.0/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script th:src="@{/ajax/employee.js}"></script>
 </body>
 </html>
